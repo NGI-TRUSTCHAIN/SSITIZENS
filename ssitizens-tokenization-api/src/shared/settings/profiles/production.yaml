@@ -1,0 +1,31 @@
+port: 8080
+
+api:
+  path: ""
+
+cache:
+  default:
+    ttl: 300
+    checkperiod: 60
+
+redis:
+  url:
+
+request:
+  sizelimit: "200kb"
+
+logs:
+  console:
+    active: true
+    level: info
+  file:
+    active: false
+    level: info
+    path: "/files/logs/logs.log"
+
+language:
+  allowed:
+    - es
+    - en
+  default: en
+  location: "/shared/files/locales"

@@ -1,0 +1,30 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "clean": "npx hardhat clean",
+    "test": "npx hardhat compile && npx hardhat test",
+    "deploy": "npx hardhat deploy",
+    "coverage": "npx hardhat clean && npx hardhat coverage",
+    "check-console": "npx hardhat check:console"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.2.0",
+    "@openzeppelin/hardhat-upgrades": "^3.9.0",
+    "@types/bson": "^4.0.5",
+    "hardhat": "^2.22.18",
+    "solidity-coverage": "^0.8.14"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^5.2.0",
+    "bson": "^6.10.2",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "hardhat-ignition": "^0.0.1"
+  },
+  "engines": {
+    "node": "22.12.0",
+    "npm": "10.9.0"
+  }
+}

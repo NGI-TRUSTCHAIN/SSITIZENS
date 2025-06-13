@@ -1,0 +1,41 @@
+{
+  "name": "tokenization-lib-wallet",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "generate:typechain": "typechain --target=ethers-v5 src/contracts/izToken.json --out-dir='src/contracts/typechain'",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ethers": "5.7.2",
+    "global": "^4.4.0",
+    "i": "^0.3.7",
+    "solc": "^0.8.29"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^5.3.0",
+    "@openzeppelin/contracts-upgradeable": "^5.3.0",
+    "@typechain/ethers-v5": "^11.1.2",
+    "@types/node": "^22.15.3",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.4",
+    "typechain": "^8.3.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  }
+}

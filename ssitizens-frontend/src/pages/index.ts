@@ -1,0 +1,9 @@
+export { IndexPage } from "@/pages/IndexPage/IndexPage";
+export { SettingsPage } from "@/pages/SettingsPage/SettingsPage";
+export { AdminDashboardPage } from "@/pages/AdminDashboardPage/AdminDashboardPage";
+export { CitizenDashboardPage } from "@/pages/CitizenDashboardPage/CitizenDashboardPage";
+export { CitizensPage } from "@/pages/CitizensPage/CitizensPage";
+export { CommercePage } from "@/pages/CommercePage/CommercePage";
+export { AdminTransactionHistoryPage } from "@/pages/AdminTransactionHistoryPage/AdminTransactionHistoryPage";
+export { TransactionDetailPage } from "@/pages/TransactionDetailPage/TransactionDetailPage";
+export { TransactionHistoryPage } from "@/pages/TransactionHistoryPage/TransactionHistoryPage";

@@ -1,0 +1,64 @@
+services:
+  redis:
+    image: redis:7
+
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB:=postgres
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ssitizens-backend
+    command: sh ./entrypoint.sh
+    environment:
+      SECRET_KEY: "Local"
+      REDIS_HOST: "redis"
+      BACKEND_DOMAIN: "http://localhost:8000"
+      REDIS_BROKER_URL: "redis://redis:6379/0"
+      DEBUG: 1
+      AZURE_OPENAI_API_BASE: ${AZURE_OPENAI_API_BASE}
+      AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY}
+      AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION}
+      VISION_LLM_MODEL: ${VISION_LLM_MODEL}
+      CLASSIFICATION_LLM_MODEL: ${CLASSIFICATION_LLM_MODEL}
+
+    volumes:
+      - .:/code/
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+      - redis
+
+  celery:
+    image: ssitizens-backend
+    command: celery -A project worker -l info -E
+    environment:
+      REDIS_HOST: "redis"
+      BACKEND_DOMAIN: "http://localhost:8000"
+      REDIS_BROKER_URL: "redis://redis:6379/0"
+      DEBUG: 1
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      VISION_LLM_MODEL: ${VISION_LLM_MODEL}
+      CLASSIFICATION_LLM_MODEL: ${CLASSIFICATION_LLM_MODEL}
+    volumes:
+      - .:/code/
+    depends_on:
+      - redis
+      - postgres
+
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=8888
+    ports:
+      - 8888:8888
+
+volumes:
+  postgres_data:

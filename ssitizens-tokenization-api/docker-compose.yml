@@ -1,0 +1,44 @@
+services:
+
+  redis:
+    image: redis:7
+    ports:
+      - 6379:6379
+
+  postgres:
+    image: postgres:16
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+
+
+  service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: ssitizens-tokenization-service
+    command: npm run dev
+    volumes:
+      - ./src:/app/src
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./nodemon.json:/app/nodemon.json
+      - ./package.json:/app/package.json
+      - ./node_modules:/app/node_modules
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+      DATABASE_SSL: false
+      REDIS_URL: redis://redis:6379/0
+      ISSUER_PRIVATE_KEY: ${ISSUER_PRIVATE_KEY}
+      BLOCKCHAIN_RPC_URL:  ${BLOCKCHAIN_RPC_URL}
+      SMART_CONTRACT_ADDRESS: ${SMART_CONTRACT_ADDRESS}
+      BLOCKCHAIN_FIRST_BLOCK_INTERVAL_EVENT_INDEXER: ${BLOCKCHAIN_FIRST_BLOCK_INTERVAL_EVENT_INDEXER}
+      BLOCKCHAIN_BLOCK_INTERVAL_EVENT_INDEXER: ${BLOCKCHAIN_BLOCK_INTERVAL_EVENT_INDEXER}
+      TIME_INTERVAL_MILISECONDS_EVENT_INDEXER: ${TIME_INTERVAL_MILISECONDS_EVENT_INDEXER}
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - redis

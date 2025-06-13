@@ -1,0 +1,870 @@
+# swagger: "3.1"
+openapi: 3.0.0
+info:
+  title: SSITIZENS Tokenization Module Api
+  description: SSITIZENS Tokenization Module Api
+  version: "0.1.0"
+  termsOfService: urn:tos
+  contact: {}
+servers:
+  - url: ""
+    description: Default Server
+  - url: "{protocol}://{environment}:{port}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: https
+      port:
+        default: "443"
+      environment:
+        default: localhost
+    description: Custom Server
+
+tags:
+  - name: events
+    description: Events API
+  - name: balance
+    description: Balance information
+  - name: permissions
+    description: Permissions information
+  - name: rpc
+    description: RPC API
+  - name: system
+    description: System status and control
+
+paths:
+  # system
+  /api/system/health:
+    get:
+      tags:
+        - system
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthState"
+  # events
+  /api/events:
+    get:
+      tags:
+        - events
+      summary: Retrieve stored contract events
+      operationId: getEvents
+      parameters:
+        - name: index
+          in: query
+          description: The event index in the database to start retrieving from
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: size
+          in: query
+          description: The number of events to retrieve per page
+          required: false
+          schema:
+            type: integer
+            default: 10
+            minimum: 1
+            maximum: 100
+      responses:
+        "200":
+          description: A paginated list of contract events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        description: Total number of events in the database
+                      next_page:
+                        type: string
+                        nullable: true
+                        description: URL to fetch the next page of results, or null if there are no more events
+                      page_size:
+                        type: integer
+                        description: The number of events returned in this request
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: integer
+                          description: Sequential index of the event in the table
+                        id:
+                          type: string
+                          description: Unique event ID
+                        hash:
+                          type: string
+                          description: Transaction hash
+                        type:
+                          type: string
+                          description: Type of the event
+                        data:
+                          type: object
+                          additionalProperties: true
+                          description: JSON data of the event
+                        timestamp:
+                          type: string
+                          format: date-time
+                          description: The timestamp when the event was emitted
+                        block_number:
+                          type: string
+                          description: Block number where the event was emitted
+                        gas_used:
+                          type: string
+                          description: Gas used in the transaction
+              example:
+                metadata:
+                  total: 17
+                  next_page: "/api/events?index=6&size=3"
+                  page_size: 3
+                events:
+                  - index: 0
+                    id: "0x18d353ef782ff9abf94f52b54fde0efffd20ebce183a4050f73d2ee0af7a0d2a_Issued"
+                    hash: "0x18d353ef782ff9abf94f52b54fde0efffd20ebce183a4050f73d2ee0af7a0d2a"
+                    type: "Issued"
+                    data:
+                      _operator: "0x0795Dc9359ea9E0203374E4cdf3b2e6959cC5877"
+                      _to: "0x6aAfAe0c0bfD27A58A93A2F83EDd0e8f2ddF79dA"
+                      _value: "10000000000000000000"
+                      _data: "0x4164646974696f6e616c20696e666f726d6174696f6e"
+                    timestamp: "2025-05-27T20:01:47.358Z"
+                    block_number: "54669578"
+                    gas_used: "46156"
+        "400":
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+        "404":
+          description: No events found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+
+  /api/events/{tx_hash}:
+    get:
+      tags:
+        - events
+      summary: Retrieve events by transaction hash
+      operationId: getEventsByTxHash
+      parameters:
+        - name: tx_hash
+          in: path
+          description: The transaction hash to search for
+          required: true
+          schema:
+            type: string
+            pattern: '^0x[a-fA-F0-9]{64}$'
+      responses:
+        "200":
+          description: A list of events for the specified transaction
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique event ID
+                    hash:
+                      type: string
+                      description: Transaction hash
+                    type:
+                      type: string
+                      description: Type of the event
+                    data:
+                      type: object
+                      description: JSON data of the event
+                    timestamp:
+                      type: string
+                      format: date-time
+                      description: The timestamp when the event was emitted
+                    block_number:
+                      type: string
+                      description: Block number where the event was emitted
+                    gas_used:
+                      type: string
+                      description: Gas used in the transaction
+              example:
+                - id: "0x18d353ef782ff9abf94f52b54fde0efffd20ebce183a4050f73d2ee0af7a0d2a_Issued"
+                  hash: "0x18d353ef782ff9abf94f52b54fde0efffd20ebce183a4050f73d2ee0af7a0d2a"
+                  type: "Issued"
+                  data:
+                    _operator: "0x0795Dc9359ea9E0203374E4cdf3b2e6959cC5877"
+                    _to: "0x6aAfAe0c0bfD27A58A93A2F83EDd0e8f2ddF79dA"
+                    _value: "10000000000000000000"
+                    _data: "0x4164646974696f6e616c20696e666f726d6174696f6e"
+                  timestamp: "2025-05-27T20:01:47.358Z"
+                  block_number: "54669578"
+                  gas_used: "46156"
+        "400":
+          description: Invalid transaction hash
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+        "404":
+          description: No events found for the transaction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventErrorResponse"
+  #balance
+  /api/balance/all/{address}:
+    get:
+      tags:
+        - balance
+      summary: Retrieve ethers and tokens balance for a specific address
+      operationId: getBalances
+      parameters:
+        - name: address
+          in: path
+          description: The address of wallet
+          required: true
+          schema:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{40}$"
+      responses:
+        "200":
+          description: A json with information about balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ethers:
+                    type: string
+                    description: The ethers balance of the address
+
+                  tokens:
+                    type: string
+                    description: The tokens balance of the address
+  /api/balance/ethers/{address}:
+    get:
+      tags:
+        - balance
+      summary: Retrieve ethers balance for a specific address
+      operationId: getEthers
+      parameters:
+        - name: address
+          in: path
+          description: The address of wallet
+          required: true
+          schema:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{40}$"
+      responses:
+        "200":
+          description: A json with information about balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ethers:
+                    type: string
+                    description: The ethers balance of the address
+  /api/balance/tokens/{address}:
+    get:
+      tags:
+        - balance
+      summary: Retrieve ethers and tokens balance for a specific address
+      operationId: getEvents
+      parameters:
+        - name: address
+          in: path
+          description: The address of wallet
+          required: true
+          schema:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{40}$"
+      responses:
+        "200":
+          description: A json with information about balance
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokens:
+                    type: string
+                    description: The tokens balance of the address
+  # permissions
+  /api/permissions/{address}:
+    get:
+      tags:
+        - permissions
+      summary: Retrieve permission for a specific address
+      operationId: getPermissions
+      parameters:
+        - name: address
+          in: path
+          description: The address of wallet
+          required: true
+          schema:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{40}$"
+      responses:
+        "200":
+          description: A json with information about permissions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  permissions:
+                    type: string
+                    description: The permission of the address
+  # rpc
+  /rpc:
+    post:
+      tags:
+        - rpc
+      summary: JSON-RPC interface for interacting with smart contracts
+      operationId: callRpcMethod
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+                - $ref: "#/components/schemas/RpcRequestGenerateTokens"
+                - $ref: "#/components/schemas/RpcRequestDistributeTokens"
+                - $ref: "#/components/schemas/RpcRequestDistributeTokensInBatch"
+                - $ref: "#/components/schemas/RpcRequestForceTokenRedemption"
+                - $ref: "#/components/schemas/RpcRequestAssignRole"
+                - $ref: "#/components/schemas/RpcRequestUnassignRole"
+            examples:
+              GenerateTokens:
+                summary: "GenerateTokens - Generate an amount of tokens as an issuer"
+                value:
+                  jsonrpc: "2.0"
+                  method: "generateTokens"
+                  params:
+                    quantity: 10
+                    additionalData: "Additional information"
+                  id: 1
+              DistributeTokens:
+                summary: "DistributeTokens - Distribute an amount of tokens to a specific users"
+                value:
+                  jsonrpc: "2.0"
+                  method: "distributeTokens"
+                  params:
+                    to: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+                    quantity: 1
+                    additionalData: "Additional information"
+                  id: 2
+              DistributeTokensInBatch:
+                summary: "DistributeTokensInBatch - Distribute a multiple tokens to a multiple users"
+                value:
+                  jsonrpc: "2.0"
+                  method: "distributeTokensInBatch"
+                  params:
+                    toBatch:
+                      [
+                        "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5",
+                        "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe6",
+                      ]
+                    quantityBatch: [1000, 1000]
+                  id: 3
+              ForceTokenRedemption:
+                summary: "ForceTokenRedemption - Force an user to burn its tokens"
+                value:
+                  jsonrpc: "2.0"
+                  method: "forceTokenRedemption"
+                  params:
+                    addr: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+                    quantity: 1000
+                    additionalData: "Data"
+                    operatorData: "More Data"
+                  id: 4
+              AssignRole:
+                summary: "AssignRole - Assign a role to a specific user"
+                value:
+                  jsonrpc: "2.0"
+                  method: "assignRole"
+                  params:
+                    addr: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+                    role: 1
+                    exp: 1811065615
+                    attachedData: "Additional information"
+                  id: 5
+              UnassignRole:
+                summary: "UnassignRole - Revoke a role to a specific user"
+                value:
+                  jsonrpc: "2.0"
+                  method: "unassignRole"
+                  params:
+                    addr: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+                  id: 6
+
+      responses:
+        "200":
+          description: Successful RPC call
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RpcSuccessResponse"
+
+        "400":
+          description: Invalid JSON-RPC request (e.g., malformed JSON, invalid params)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RpcErrorResponse"
+              examples:
+                InvalidRequest:
+                  value:
+                    jsonrpc: "2.0"
+                    error:
+                      code: -32600
+                      message: "Invalid Request"
+                    id: null
+                InvalidParams:
+                  value:
+                    jsonrpc: "2.0"
+                    error:
+                      code: -32602
+                      message: "Invalid params"
+                    id: 1
+
+        "404":
+          description: Method not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RpcErrorResponse"
+              examples:
+                MethodNotFound:
+                  value:
+                    jsonrpc: "2.0"
+                    error:
+                      code: -32601
+                      message: "Method not found"
+                    id: 1
+
+        "500":
+          description: Internal server error (e.g., execution failure, unexpected exception)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RpcErrorResponse"
+              examples:
+                InternalError:
+                  value:
+                    jsonrpc: "2.0"
+                    error:
+                      code: -32603
+                      message: "Internal error"
+                    id: 1
+
+components:
+  schemas:
+    HealthState:
+      type: object
+      properties:
+        ok:
+          type: boolean
+    Metadata:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of events in the database
+        next_page:
+          type: string
+          nullable: true
+          description: URL to fetch the next page of results, or null if there are no more events
+        page_size:
+          type: integer
+          description: The number of events returned in this request
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique event ID
+        event_type:
+          type: string
+          description: Type of the event
+        event_data:
+          type: object
+          additionalProperties: true
+          description: JSON data of the event
+        emitted_at:
+          type: string
+          format: date-time
+          description: The timestamp when the event was emitted
+
+    EventByTxHash:
+      type: object
+      properties:
+        event_type:
+          type: string
+          description: Type of the event
+        event_data:
+          type: object
+          additionalProperties: true
+          description: JSON data of the event
+        emitted_at:
+          type: string
+          format: date-time
+          description: The timestamp when the event was emitted
+
+    EventErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error description
+      example:
+        InvalidParameters:
+          value:
+          error: "invalid_parameters"
+          message: "The provided 'index' or 'size' parameter is invalid."
+        NotFound:
+          value:
+            error: "not_found"
+            message: "No events found in the database."
+        InternalServerError:
+          value:
+            error: "internal_server_error"
+            message: "An unexpected error occurred while retrieving events."
+
+    TxErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error description
+      example:
+        InvalidParameters:
+          value:
+            error: "invalid_parameters"
+            message: "The provided transaction ID is invalid. It must be a 66-character hexadecimal string starting with '0x'."
+        NotFound:
+          value:
+            error: "not_found"
+            message: "Transaction not found in the database."
+        InternalServerError:
+          value:
+            error: "internal_server_error"
+            message: "An unexpected error occurred while retrieving the transaction."
+    RpcRequestGenerateTokens:
+      description: "GenerateTokens - Generate an amount of tokens as an issuer"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "generateTokens"
+        params:
+          type: object
+          required:
+            - quantity
+          properties:
+            quantity:
+              type: integer
+              description: The amount of tokens to generate
+              example: 1000
+            additionalData:
+              type: string
+              description: Additional information for the tx
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 12
+          description: Unique request identifier
+      title: RpcRequestGenerateTokens
+    RpcRequestDistributeTokens:
+      description: "DistributeTokens - Distribute an amount of tokens to a specific users"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "distributeTokens"
+        params:
+          type: object
+          required:
+            - to
+            - quantity
+          properties:
+            to:
+              type: string
+              description: The address of the recipient
+              example: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+            quantity:
+              type: integer
+              description: The amount of tokens to generate
+              example: 1
+            additionalData:
+              type: string
+              description: Additional information for the tx
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 123
+          description: Unique request identifier
+      title: RpcRequestDistributeTokens
+    RpcRequestDistributeTokensInBatch:
+      description: "DistributeTokensInBatch - Distribute a multiple tokens to a multiple users"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "distributeTokensInBatch"
+        params:
+          type: object
+          required:
+            - toBatch
+            - quantityBatch
+          properties:
+            toBatch:
+              type: array
+              description: Array of addresses of the recipients
+              items:
+                type: string
+                example: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+            quantityBatch:
+              type: array
+              description: Array of amounts
+              items:
+                type: integer
+                example: 1000
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 12
+          description: Unique request identifier
+      title: RpcRequestDistributeTokensInBatch
+    RpcRequestForceTokenRedemption:
+      description: "ForceTokenRedemption - Force an user to burn its tokens"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "forceTokenRedemption"
+        params:
+          type: object
+          required:
+            - addr
+            - quantity
+          properties:
+            addr:
+              type: string
+              description: Address of the recipient
+              example: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+            quantity:
+              type: integer
+              example: 1000
+              description: Array of amounts
+            additionalData:
+              type: string
+              description: Additional information for the tx
+            operatorData:
+              type: string
+              description: Additional information for the operator
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 12
+          description: Unique request identifier
+      title: RpcRequestForceTokenRedemption
+    RpcRequestAssignRole:
+      description: "AssignRole - Assign a role to a specific user"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "assignRole"
+        params:
+          type: object
+          required:
+            - addr
+            - role
+            - exp
+          properties:
+            addr:
+              type: string
+              description: Address of the recipient
+              example: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+            role:
+              type: integer
+              example: 1
+              description: Role can be a CITIZENS = 1 or STORES = 2
+            exp:
+              type: integer
+              description: Expiration time in seconds
+              example: 1516239022
+            attachedData:
+              type: string
+              description: Additional information for the Tx
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 12
+          description: Unique request identifier
+      title: RpcRequestAssignRole
+    RpcRequestUnassignRole:
+      description: "UnassignRole - Revoke a role to a specific user"
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+        - params
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+          description: JSON-RPC version
+          example: "2.0"
+        method:
+          type: string
+          description: The RPC method to execute
+          example: "assignRole"
+        params:
+          type: object
+          required:
+            - addr
+          properties:
+            addr:
+              type: string
+              description: Address of the recipient
+              example: "0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5"
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 12
+          description: Unique request identifier
+      title: RpcRequestUnassignRole
+    RpcSuccessResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        result:
+          type: object
+          additionalProperties: true
+          description: The result of the RPC method execution
+        id:
+          oneOf:
+            - type: string
+            - type: integer
+          description: Matches the request ID
+
+    RpcErrorResponse:
+      type: object
+      properties:
+        jsonrpc:
+          type: string
+          enum: ["2.0"]
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: JSON-RPC error code
+            message:
+              type: string
+              description: Error message
+        id:
+          oneOf:
+            - type: string
+            - type: integer

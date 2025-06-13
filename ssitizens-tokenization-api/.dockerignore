@@ -1,0 +1,13 @@
+# project
+node_modules
+dist
+wget-log*
+src/files/logs/*
+docs
+
+# Docker
+.docker-volumes
+Dockerfile*
+
+# environment file
+.env

@@ -1,0 +1,559 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-13 12:10+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: project/settings.py:176
+msgid "Spanish"
+msgstr "Español"
+
+#: project/settings.py:176
+msgid "English"
+msgstr "Inglés"
+
+#: project/settings.py:287
+msgid "Welcome to the SSITIZENS Admin Site"
+msgstr "Binevenido a la web administrativa de SSITIZENS"
+
+#: project/settings.py:288
+msgid "SSITIZENS"
+msgstr "SSITIZENS"
+
+#: project/settings.py:296
+msgid "Home"
+msgstr "Página Principal"
+
+#: project/settings.py:301 project/settings.py:313
+msgid "Support"
+msgstr "Soporte"
+
+#: project/urls.py:72
+msgid ""
+"You have requested a password change. To reset your password, click on the "
+"link below and complete the form."
+msgstr ""
+"Has solicitado un cambio de contraseña. Para cambiar tu contraseña, pincha "
+"en el enlace de debado y completa el formulario."
+
+#: project/urls.py:75
+msgid ""
+"The link will expire in 24 hours. If it stops working, please request the "
+"change again."
+msgstr "Este enlace expira en 24 horas. Si no funciona, solitalo nuevamente."
+
+#: ssitizens/enums.py:26
+msgid "generate"
+msgstr "Generado"
+
+#: ssitizens/enums.py:27
+msgid "transfer"
+msgstr "Transferido"
+
+#: ssitizens/enums.py:28
+msgid "burn"
+msgstr "Quemado"
+
+#: ssitizens/enums.py:29
+msgid "forcedBurn"
+msgstr "Retirada de Fondos"
+
+#: ssitizens/enums.py:30
+msgid "assignRole"
+msgstr "Rol Asignado"
+
+#: ssitizens/enums.py:31
+msgid "deleteRole"
+msgstr "Role Eliminado"
+
+#: ssitizens/enums.py:32
+msgid "execution"
+msgstr "Ejecución"
+
+#: ssitizens/models.py:17 ssitizens/views.py:789 user/forms.py:9
+msgid "Email"
+msgstr "Email"
+
+#: ssitizens/models.py:18 ssitizens/views.py:788
+msgid "Address"
+msgstr "Dirección"
+
+#: ssitizens/models.py:20
+msgid "Type"
+msgstr "Tipo"
+
+#: ssitizens/models.py:26 ssitizens/models.py:101
+msgid "Data"
+msgstr "Datos"
+
+#: ssitizens/models.py:28
+msgid "Terms Accepted"
+msgstr "Términos y Condiciones Aceptadas"
+
+#: ssitizens/models.py:29
+msgid "Active Since"
+msgstr "Activo desde"
+
+#: ssitizens/models.py:30
+msgid "Active Until"
+msgstr "Activo hasta"
+
+#: ssitizens/models.py:31
+msgid "Balance Tokens"
+msgstr "Balance de Tokens"
+
+#: ssitizens/models.py:32
+msgid "Balance Ethers"
+msgstr "Balance de Ethers"
+
+#: ssitizens/models.py:35
+msgid "Profile"
+msgstr "Perfil"
+
+#: ssitizens/models.py:36
+msgid "Profiles"
+msgstr "Perfiles"
+
+#: ssitizens/models.py:45 ssitizens/serializers.py:51
+msgid "Store ID and CIF are required for store type"
+msgstr "Store ID y CIF son requeridos para el tipo Comercio"
+
+#: ssitizens/models.py:49 ssitizens/serializers.py:56 ssitizens/views.py:153
+msgid "That CIF is already in use"
+msgstr "Ese CIF está en uso"
+
+#: ssitizens/models.py:57
+msgid "DNI and AID Funds are required for beneficiary type"
+msgstr "DNI y los fondos de ayuda son requeridos para el tipo Ciudadano"
+
+#: ssitizens/models.py:60
+msgid "Aid type is required for beneficiary type"
+msgstr "El tipo de ayuda es requerida para el tipo Ciudadano"
+
+#: ssitizens/models.py:64 ssitizens/serializers.py:39 ssitizens/views.py:145
+msgid "That DNI is already in use"
+msgstr "Ese DNI está en uso"
+
+#: ssitizens/models.py:80 ssitizens/views.py:796
+msgid "Event"
+msgstr "Evento"
+
+#: ssitizens/models.py:87 ssitizens/views.py:797
+msgid "From"
+msgstr "De"
+
+#: ssitizens/models.py:94 ssitizens/views.py:798
+msgid "To"
+msgstr "Para"
+
+#: ssitizens/models.py:99 ssitizens/views.py:800
+msgid "Tokens"
+msgstr "Tokens"
+
+#: ssitizens/models.py:100 ssitizens/views.py:801
+msgid "Ethers"
+msgstr "Ethers"
+
+#: ssitizens/models.py:102
+msgid "Transaction Hash"
+msgstr "Hash de la transacción"
+
+#: ssitizens/models.py:103
+msgid "Timestamp"
+msgstr "Fecha-Hora"
+
+#: ssitizens/models.py:106
+msgid "Transaction"
+msgstr "Transacción"
+
+#: ssitizens/models.py:107
+msgid "Transactions"
+msgstr "Transacciones"
+
+#: ssitizens/models.py:111
+msgid "Tokens amount cannot be negative or zero"
+msgstr "Los tokens no pueden tener un valor de 0 o negativo"
+
+#: ssitizens/models.py:114 ssitizens/models.py:119 ssitizens/models.py:122
+#: ssitizens/models.py:125 ssitizens/models.py:128
+msgid "From user should be empty"
+msgstr "El campo De no puede estar vacio"
+
+#: ssitizens/models.py:116
+msgid "To user should be empty"
+msgstr "El campo Para no puede estar vacio"
+
+#: ssitizens/models.py:135
+msgid "Pre Code"
+msgstr ""
+
+#: ssitizens/models.py:140
+msgid "Session ID"
+msgstr ""
+
+#: ssitizens/models.py:142
+msgid "State"
+msgstr ""
+
+#: ssitizens/models.py:145
+msgid "Expiration"
+msgstr "Expiración"
+
+#: ssitizens/models.py:148
+msgid "User Identification"
+msgstr "Identificador del Receptor"
+
+#: ssitizens/models.py:149
+msgid "User Identifications"
+msgstr "Identificadores de Usuarios"
+
+#: ssitizens/models.py:153
+msgid "Revocation status"
+msgstr "Estado de la revocación"
+
+#: ssitizens/models.py:156
+msgid "VC Identifier"
+msgstr "Identficador de la credencial"
+
+#: ssitizens/models.py:158
+msgid "VC Type"
+msgstr "Tipo de Credencial"
+
+#: ssitizens/models.py:159
+msgid "Holder Identifier"
+msgstr "Identificador del Receptor"
+
+#: ssitizens/models.py:160
+msgid "Issuance Date"
+msgstr "Fecha de emisión"
+
+#: ssitizens/models.py:169
+msgid "Can't restore the status of a revoked VC"
+msgstr "No se puede revocar una credencial previamente revocada"
+
+#: ssitizens/models.py:172
+msgid "Issued Verifiable Credential"
+msgstr "Credencial Verificable Emitida"
+
+#: ssitizens/models.py:173
+msgid "Issued Verifiable Credentials"
+msgstr "Credenciales Verificables Emitidas"
+
+#: ssitizens/serializers.py:34
+msgid "DNI are required for beneficiary type"
+msgstr "DNI es requerido para el tipo Ciudadano"
+
+#: ssitizens/services/rpc/rpc.py:182
+msgid "Tokenization service URL not set"
+msgstr "No hay URL del Servicio de Tokenización"
+
+#: ssitizens/services/rpc/rpc.py:197
+msgid "Not the same tx"
+msgstr "No es la misma transacción"
+
+#: ssitizens/signals.py:25 ssitizens/signals.py:59 user/signals.py:41
+msgid "Ssitizens Account Activation"
+msgstr "Activación de la cuenta de SSITIZENS"
+
+#: ssitizens/signals.py:31 ssitizens/signals.py:65
+msgid "You have been invited to the Ssitizens Platform."
+msgstr "Ha sido usted invitado a la plataforma de SSITIZENS"
+
+#: ssitizens/signals.py:34
+msgid ""
+"Your store information is already added to the system. Now you need to do "
+"next steps:"
+msgstr ""
+"Su información ha sido añadida al sistema. Ahora necesita hacer los "
+"siguientes pasos:"
+
+#: ssitizens/signals.py:37 ssitizens/signals.py:71
+msgid "1. Download the wallet app from the links below."
+msgstr "1. Descarguese la wallet en los enlaces de debajo."
+
+#: ssitizens/signals.py:40 ssitizens/signals.py:74
+msgid "2. Follow the instructions in the app to create your wallet."
+msgstr "2. Siga las instrucciones de la aplicación para crear su wallet."
+
+#: ssitizens/signals.py:43
+#| msgid "3. Scan the QR code to add your store identification to you wallet."
+msgid ""
+"3. Scan the QR code to add your store identification to you wallet. Or click "
+"the button below"
+msgstr ""
+"3. Escanee el QR de debajo y añada su identification de Comercio a su wallet."
+
+#: ssitizens/signals.py:45 ssitizens/signals.py:79
+msgid "4. You can log into website."
+msgstr ""
+"4. Con todos los pasos anteriores completos, puede loguearte en la web."
+
+#: ssitizens/signals.py:50
+msgid "Click here to get your VC"
+msgstr "Haz click aquí para obtener tu VC"
+
+#: ssitizens/signals.py:68
+msgid ""
+"Your information is already added to the system. Now you need to do next "
+"steps."
+msgstr ""
+"Su información ha sido añadida al sistema. Ahora necesita hacer los "
+"siguientes pasos:"
+
+#: ssitizens/signals.py:77
+msgid ""
+"3. Generate your Biometric Credential in your wallet. Go to advanced setting "
+"and follow the steps to connect with Facephi."
+msgstr ""
+"3. Genere su Credencial Biométrica en su Wallet. En ajustes avanzados "
+"encontrará un apartado para conectar con Facephi."
+
+#: ssitizens/views.py:757
+msgid "There is not an user with that ID"
+msgstr "No hay un usuario con ese ID"
+
+#: ssitizens/views.py:766
+msgid "Aid Type"
+msgstr "Tipo de Ayuda"
+
+#: ssitizens/views.py:786
+msgid "Name"
+msgstr "nombre"
+
+#: ssitizens/views.py:787
+msgid "ID"
+msgstr "Identificación"
+
+#: ssitizens/views.py:790
+msgid "User Type"
+msgstr "Tipo de Usuario"
+
+#: ssitizens/views.py:791
+msgid "More Information"
+msgstr "Más Información"
+
+#: ssitizens/views.py:795
+msgid "Date-Time"
+msgstr "Fecha y Hora"
+
+#: ssitizens/views.py:799
+msgid "Hash"
+msgstr ""
+
+#: ssitizens/views.py:802
+msgid "Ticket"
+msgstr "Ticket"
+
+#: ssitizens/views.py:803
+msgid "Ticket Elements"
+msgstr "Datos del Ticket"
+
+#: ssitizens/views.py:804
+msgid "Total Aid"
+msgstr "Total de la Ayuda"
+
+#: ssitizens/views.py:805
+msgid "Total Payment"
+msgstr "Total del Pago"
+
+#: ssitizens/views.py:806 ticket_processing/models.py:14
+msgid "Product"
+msgstr "Producto"
+
+#: ssitizens/views.py:807
+msgid "Price"
+msgstr "Precio"
+
+#: ssitizens/views.py:810
+msgid "Administrator"
+msgstr "Administrador"
+
+#: tasks/distributetasks.py:42
+msgid "No citizens to distribute tokens detected, skipping"
+msgstr "No hay ciudadanos detectados para la distribución, saltando"
+
+#: tasks/eventstasks.py:237
+msgid "Payment Request Information"
+msgstr "Información de solicitud de Pago"
+
+#: tasks/eventstasks.py:242
+msgid "You have a payment request from "
+msgstr "Tiene una solicitud de abono de "
+
+#: tasks/eventstasks.py:245
+msgid "The amount of tokens to be redeemed is "
+msgstr "La cantidad a abonar es de "
+
+#: tasks/eventstasks.py:248
+msgid "The request was processed on "
+msgstr "La solicitud se ha procesado el "
+
+#: tasks/eventstasks.py:251
+msgid ""
+"If you want to see more information about the transaction you can view it "
+"here."
+msgstr "Si quieres ver más información sobre la solicitud, puedes verla aquí"
+
+#: tasks/models.py:13
+msgid "Register"
+msgstr ""
+
+#: templates/error_templates/400.html:9
+msgid "400 Bad Request"
+msgstr "400 Bad Request"
+
+#: templates/error_templates/400.html:36
+msgid "Oops! Bad Request"
+msgstr "¡Vaya! Petición incorrecta"
+
+#: templates/error_templates/400.html:37
+msgid ""
+"The request you're looking for doesn't go well. Let's get you back on track:"
+msgstr ""
+"La solicitud que ha realizado no ha ido bien. Vuelva a la página principal."
+
+#: templates/error_templates/400.html:38 templates/error_templates/403.html:38
+#: templates/error_templates/404.html:38
+msgid "Go to Homepage"
+msgstr "Vuelve a la página principal"
+
+#: templates/error_templates/403.html:9
+msgid "403 Forbidden"
+msgstr "403 Forbidden"
+
+#: templates/error_templates/403.html:36
+msgid "Oops! No Permission to Access"
+msgstr "¡Vaya! No tiene permisos de acceso"
+
+#: templates/error_templates/403.html:37
+msgid ""
+"The page you're looking for you don't have permissions. Let's get you back "
+"on track:"
+msgstr ""
+"No tiene permisos suficientes para la página solicitada. Vuelva a la página "
+"principal."
+
+#: templates/error_templates/404.html:9
+msgid "404 Page Not Found"
+msgstr "404 Page Not Found"
+
+#: templates/error_templates/404.html:36
+msgid "Oops! Page Not Found"
+msgstr "¡Vaya! Página no encontrada"
+
+#: templates/error_templates/404.html:37
+msgid "The page you're looking for doesn't exist. Let's get you back on track:"
+msgstr "La página que está buscando no existe. Vuelve a la página principal:"
+
+#: templates/error_templates/500.html:9
+msgid "500 Internal Server Error"
+msgstr "500 Internal Server Error"
+
+#: templates/error_templates/500.html:36
+msgid "Oops! Something Went Wrong"
+msgstr "¡Vaya! Algo no fue como se esperaba."
+
+#: templates/error_templates/500.html:37
+msgid "We're experiencing technical difficulties. Please try again later."
+msgstr ""
+"Estamos experimentando algunas dificultades técnicas. Espere unos segundos y "
+"vuelva a intentarlo."
+
+#: templates/error_templates/500.html:38
+msgid "If the issue persists, you can contact our support team."
+msgstr "Si los errores persistes, contacte con el equipo de soporte."
+
+#: templates/registration/password_reset.html:44
+msgid "Volver a iniciar sesión"
+msgstr "Volver a iniciar sesión"
+
+#: templates/registration/password_reset.html:55
+msgid "Actualizar acceso"
+msgstr "Actualizar acceso"
+
+#: templates/registration/password_reset_done_.html:6
+msgid "Password Reset Done"
+msgstr "Cambio de contraseña realizado"
+
+#: templates/registration/password_reset_email.html:80
+msgid "Change Password"
+msgstr "Cambiar Contraseña"
+
+#: templates/registration/password_reset_email.html:97
+msgid "Password Reset"
+msgstr "Cambio de Contraseña"
+
+#: templates/registration/password_reset_subject.txt:2
+msgid "Ssitizens Password Reset"
+msgstr "Cambiao de Contraseña en Ssitizens"
+
+#: ticket_processing/models.py:8
+msgid "Product Name"
+msgstr "Nombre del Producto"
+
+#: ticket_processing/models.py:10
+msgid "Additional Information"
+msgstr "Nombre adicional"
+
+#: ticket_processing/models.py:15
+msgid "Products"
+msgstr "Productos"
+
+#: ticket_processing/models.py:23
+msgid "Aid Name"
+msgstr "Nombre de la Ayuda"
+
+#: ticket_processing/models.py:27
+msgid "Aid"
+msgstr "Ayuda"
+
+#: ticket_processing/models.py:28
+msgid "Aids"
+msgstr "Ayudas"
+
+#: user/admin.py:15
+msgid "Personal info"
+msgstr "información personal"
+
+#: user/admin.py:17
+msgid "Permissions"
+msgstr "Permisos"
+
+#: user/admin.py:28
+msgid "Important dates"
+msgstr "Fechas destacadas"
+
+#: user/forms.py:13
+msgid "Required. 100 characters or fewer. Email format only."
+msgstr ""
+"Es un campo obligatorio, con menos de 100 caracteres y formato de Email"
+
+#: user/signals.py:30
+msgid "Password reset for Ssitizens"
+msgstr "Cambio de contraseña para Ssitizens"
+
+#: user/signals.py:51
+msgid "Your username is : "
+msgstr "Tu nombre de Usuario es:"
+
+#: user/signals.py:58
+msgid "Account Activation"
+msgstr "Activación de la cuenta"
+
+#~ msgid "Error creating PDF"
+#~ msgstr "Error creando el PDF"

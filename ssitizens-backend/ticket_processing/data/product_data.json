@@ -1,0 +1,158 @@
+{
+    "1":{
+        "name": "Bolígrafos",
+        "additional_information": "de gel, de tinta líquida, borrables, estilo bic, etc."
+    },
+    "2":{
+        "name": "Lápices",
+        "additional_information": "de colores, de grafito, etc."
+    },
+    "3":{
+        "name": "Cuadernos",
+        "additional_information": null
+    },
+    "4":{
+        "name": "Gomas de borrar",
+        "additional_information": null
+    },
+    "5":{
+        "name": "Sacapuntas",
+        "additional_information": null
+    },
+    "6":{
+        "name": "Reglas",
+        "additional_information": "incluyendo escuadras y transportadores"
+    },
+    "7":{
+        "name": "Compás",
+        "additional_information": null
+    },
+    "8":{
+        "name": "Folios",
+        "additional_information": null
+    },
+    "9":{
+        "name": "Ceras de dibujo",
+        "additional_information": null
+    },
+    "10":{
+        "name": "Correctores",
+        "additional_information": "líquido estilo Tip-Ex o similar, en cinta, etc."
+    },
+    "11":{
+        "name": "Rotuladores",
+        "additional_information": "incluyendo rotuladores permanentes, de pizarra, etc."
+    },
+    "12":{
+        "name": "Estuches",
+        "additional_information": null
+    },
+    "13":{
+        "name": "Mochilas",
+        "additional_information": null
+    },
+    "14":{
+        "name": "Tijeras",
+        "additional_information": null
+    },
+    "15":{
+        "name": "Pegamento en barra",
+        "additional_information": null
+    },
+    "16":{
+        "name": "Libros de texto",
+        "additional_information": null
+    },
+    "17":{
+        "name": "Toallitas húmedas",
+        "additional_information": null
+    },
+    "18":{
+        "name": "Papel higiénico",
+        "additional_information": null
+    },
+    "19":{
+        "name": "Pañales",
+        "additional_information": null
+    },
+    "20":{
+        "name": "Gel de ducha",
+        "additional_information": null
+    },
+    "21":{
+        "name": "Champú",
+        "additional_information": null
+    },
+    "22":{
+        "name": "Pasta de dientes",
+        "additional_information": null
+    },
+    "23":{
+        "name": "Gel de manos",
+        "additional_information": null
+    },
+    "24":{
+        "name": "Detergente",
+        "additional_information": null
+    },
+    "25":{
+        "name": "Suavizante",
+        "additional_information": null
+    },
+    "26":{
+        "name": "Papel de cocina",
+        "additional_information": null
+    },
+    "27":{
+        "name": "Panes",
+        "additional_information": "de todas las clases, incluyendo de molde, de barra, panecillos, de hamburguesa, etc."
+    },
+    "28":{
+        "name": "Leche",
+        "additional_information": "tanto de origen animal como bebidas o leches vegetales"
+    },
+    "29":{
+        "name": "Arroz",
+        "additional_information": null
+    },
+    "30":{
+        "name": "Pasta",
+        "additional_information": null
+    },
+    "31":{
+        "name": "Legumbres",
+        "additional_information": null
+    },
+    "32":{
+        "name": "Aceite",
+        "additional_information": "de oliva, de girasol, etc."
+    },
+    "33":{
+        "name": "Sal",
+        "additional_information": null
+    },
+    "34":{
+        "name": "Azúcar",
+        "additional_information": null
+    },
+    "35":{
+        "name": "Harina",
+        "additional_information": null
+    },
+    "36":{
+        "name": "Café",
+        "additional_information": "molido, en grano o en cápsulas"
+    },
+    "37":{
+        "name": "Frutas",
+        "additional_information": "tanto frescas como deshidratadas, en conserva, etc."
+    },
+    "38":{
+        "name": "Verduras",
+        "additional_information": null
+    },
+    "39":{
+        "name": "Setas",
+        "additional_information": null
+    }
+}

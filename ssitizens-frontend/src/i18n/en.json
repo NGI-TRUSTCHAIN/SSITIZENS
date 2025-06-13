@@ -1,0 +1,454 @@
+{
+  "common": {
+    "email": "E-mail",
+    "phone": "Phone",
+    "balance": "Balance",
+    "aid_funds": "Aid funds",
+    "actions": "Actions",
+    "close": "Close",
+    "home": "Home",
+    "citizens": "Citizens",
+    "commerce": "Stores",
+    "historic": "History",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "closeSession": "Log out",
+    "dashboard": "Dashboard",
+    "localCurrency": "Eurfys",
+    "search": "Search",
+    "back": "Go back",
+    "accept": "Accept",
+    "reject": "Reject",
+    "logoutSuccess": "Session was close successfully",
+    "unknown": "Unknown"
+  },
+  "pagination": {
+    "page": "Page",
+    "rows": "Rows"
+  },
+  "login": {
+    "title": "SSItizens Portal",
+    "subtitle": "Here you can access your personalized dashboard, view and manage your tokens.",
+    "admin": {
+      "titleAdmin": "Administrator",
+      "subtitleAdmin": "Access for the system administrator of tokens for citizens and stores.",
+      "buttonLoginAdmin": "Login as Admin",
+      "modalSubtitle": "Access with username and password",
+      "modalUsername": "User",
+      "modalUsernamePlaceholder": "Enter your username",
+      "modalPassword": "Password",
+      "modalForgottenPassword": "Have you forgotten your password? Click here to reset it"
+    },
+    "ssitizens": {
+      "titleSsitizens": "Citizen",
+      "subtitleSsitizens": "Citizen access allows you to view all your data and privacy policies.",
+      "buttonLoginSsitizens": "Login as citizen"
+    },
+    "commerce": {
+      "titleCommerce": "Store",
+      "subtitleCommerce": "Store access allows you to view all your data and manage payments.",
+      "buttonLoginCommerce": "Login as a store"
+    },
+    "success": {
+      "title": "Login successful"
+    }
+  },
+  "languages": {
+    "spanish": {
+      "spanishLanguage": "Spanish",
+      "spanishNomenclature": "es"
+    },
+    "english": {
+      "englishLanguage": "English",
+      "englishNomenclature": "en"
+    }
+  },
+  "qrCodeModal": {
+    "title": "Scan the QR code with your mobile app to access",
+    "loadingQR": "Loading QR code…",
+    "errorQR": "Error loading QR code",
+    "buttonBack": "Back"
+  },
+  "citizens": {
+    "titleCitizen": "Citizens",
+    "listCitizen": "Citizen list",
+    "addCitizen": "Add citizen",
+    "loadCitizen": "Loading citizens...",
+    "errorCitizen": "Error loading citizens:",
+    "nameCitizen": "Full name",
+    "emailCitizen": "Email",
+    "phoneCitizen": "Phone",
+    "dniCitizen": "DNI/Passport/NIE",
+    "balanceCitizen": "Balance",
+    "actionsCitizen": "Actions",
+    "rechargeBalanceCitizen": "Recharge balance",
+    "viewHistoricCitizen": "View history",
+    "blockedCitizen": "Forced Withdrawal",
+    "deletedCitizen": "Delete citizen",
+    "downloadReport": "Download report",
+    "errorAmount": "Please enter a valid amount",
+    "maxAmount": "The maximum amount is 10,000 Eurfy",
+    "rechargePrompt": "Enter the amount you want to recharge for citizen {{citizenName}}:",
+    "deleteConfirm": "Are you sure you want to delete {{citizenName}}?",
+    "deleteWarning": "This action cannot be undone and will delete all their data from the system.",
+    "deleteSuccess": "Citizen {{citizenName}} has been deleted successfully.",
+    "deleteSuccessDetail": "All their data has been deleted from the system.",
+    "blockConfirm": "Are you sure you want to execute force Withdrawal of {{userName}} tokens?",
+    "blockWarning": "This action will prevent the citizen from accessing the system.",
+    "blockSuccess": "Tokens from {{userName}} where successfully withdrawed",
+    "blockSuccessDetail": "They will no longer be able to manage their tokens",
+    "blockConfirmationTitle": "Citizen blocked",
+    "blockConfirmationMessage": "Citizen {{userName}} has been successfully blocked.",
+    "blockConfirmationDetail": "They will no longer be able to access the system until unblocked."
+  },
+  "commerce": {
+    "title": "Stores",
+    "listCommerce": "Stores list",
+    "addCommerce": "Add store",
+    "loadCommerce": "Loading store",
+    "errorCitizens": "Error loading stores:",
+    "commerceTitleCommerce": "Store",
+    "representativeCommerce": "Representative",
+    "emailCommerce": "Email",
+    "phoneCommerce": "Phone",
+    "cifCommerce": "Tax code",
+    "balanceCommerce": "Balance",
+    "actionsCommerce": "Actions",
+    "paymentCommerce": "Make payment",
+    "viewHistoricCommerce": "View history",
+    "blockedCommerce": "Forced Withdrawal",
+    "deletedCommerce": "Delete store"
+  },
+  "settings": {
+    "title": "Language",
+    "subtitle": "Set the platform's language"
+  },
+  "citizensAdminDashboard": {
+    "welcomeTitle": "Welcome to SSItizens",
+    "welcomeSubtitle": "A new way to pay at your favorite stores",
+    "manualTitle": "User Manual",
+    "manualDescription": "Make purchases by scanning your receipt to pay with your assigned tokens. The store staff will always assist you with the operation. Just like real money!",
+    "manualButton": "View manual",
+    "historyTitle": "Check your transactions",
+    "historyDescription": "In the 'history' section you can review your operations, expenses, and which store they were made in",
+    "historyButton": "View history",
+    "privacyTitle": "Privacy Policy",
+    "privacyDescription": "Your information is very important to us. Please read and authorize the privacy policies",
+    "privacyButton": "View privacy policy"
+  },
+  "citizensDashboard": {
+    "welcomeTitle": "Welcome to SSItizens",
+    "welcomeSubtitle": "A new way to manage money for citizens and stores",
+    "addGasButton": "Add gas",
+    "fundsTitle": "{{funds}} Eurfy available",
+    "fundsDescription": "You can increase the amount of available global funds",
+    "fundsButton": "Add funds",
+    "addCitizenTitle": "Register a citizen",
+    "addCitizenDescription": "Add new citizens to the SSItizens service",
+    "addCitizenButton": "New citizen registration",
+    "addCommerceTitle": "Register a store",
+    "addCommerceDescription": "Add new stores to the SSItizens service",
+    "addCommerceButton": "New store registration",
+    "toastTile": "Request processed",
+    "toastSubtitle": "Your funds request has been submitted successfully"
+  },
+  "commerceModal": {
+    "title": "New store Registration",
+    "subtitle": "Fill in the following fields to register a new store. All of them are required.",
+    "responsibleName": "Full Name of Responsible",
+    "commerceName": "Store Name",
+    "phone": "Phone",
+    "cif": "CIF",
+    "back": "Back",
+    "create": "Create Registration",
+    "message": "When creating the new registration, the person in charge will receive an e-mail with the SSItizens registration notice.",
+    "email": "Email"
+  },
+  "citizenModal": {
+    "title": "New citizen Registration",
+    "subtitle": "Fill in the following fields to register a new citizen. All of them are required.",
+    "aid": "Type of aid",
+    "name": "Full Name",
+    "phone": "Phone",
+    "funds": "Requested Funds",
+    "back": "Back",
+    "create": "Create Registration",
+    "dni": "DNI/Passport/NIE",
+    "aidTypes": {
+      "Material Escolar": "School Supplies",
+      "Supermercado": "Supermarket"
+    }
+  },
+  "adminTransactionHistory": {
+    "title": "Global History",
+    "searchPlaceholder": "Search transaction",
+    "date": "Date",
+    "event": "Event",
+    "from": "Issuer",
+    "to": "Receiver",
+    "amount": "Tokens",
+    "gas": "Gas",
+    "loading": "Loading...",
+    "noResults":"No transactions found",
+    "generalInfo": "General Information",
+    "transaction": "Transaction",
+    "hash": "Hash",
+    "ethers": "Ethers",
+    "paymentResume": "Details"
+
+  },
+  "downloadReportModal": {
+    "title": "Download report",
+    "description": "Download the report for user {{name}}. You’ll receive it by email once it’s generated.",
+    "legend": "Start & end",
+    "placeholder": "dd/mm/yyyy – dd/mm/yyyy",
+    "errorSelectRange": "Please select the full range",
+    "buttonCancel": "Cancel",
+    "buttonDownload": "Download report"
+  },
+  "accountDeactivationModal": {
+    "title": "Do you want to proceed with deactivation?",
+    "description": "The administrator will be notified and the deactivation process will begin.",
+    "confirm": "Proceed with Deactivation"
+  },
+  "addFundsModal": {
+    "addFunds": "Add funds",
+    "currentFunds": "Currently there are {{amount}} Eurfy available.",
+    "addFundsInfo": "When adding more funds, the request will be sent and these will become available funds for the system.",
+    "notify": "When the funds are available, you will receive a notification in the system.",
+    "amountLabel": "Amount in euros",
+    "amountPlaceholder": "10 Euros",
+    "requestFunds": "Request funds",
+    "requested": "Funds requested",
+    "requestedDescription": "The request will be processed",
+    "errorAmount": "The amount must be greater than 0",
+    "errorGeneric": "Something went wrong, please try again later"
+  },
+  "transactionHistory": {
+    "title": "Transaction History",
+    "balance": "Balance: {{balance}} Eurfy",
+    "requestTokens": "Request new tokens",
+    "detailTitle": "Transaction History: {{name}}",
+    "columns": {
+      "date": "Date",
+      "event": "Event",
+      "user": "User",
+      "from": "Issuer",
+      "to": "Receiver",
+      "amount": "Tokens"
+    },
+    "backToList": "Back to list",
+    "detail": {
+      "general": "General information",
+      "amount": "Amount",
+      "downloadReport": "Download report (PDF)",
+      "generatingPdf": "Generating PDF…",
+      "errorDownload": "Error downloading report: {{message}}",
+      "ticketRedirect": "View ticket",
+      "redirectingToticket": "Redirecting to ticket...",
+      "errorRedirecting": "Error redirecting to ticket: {{message}}"
+    },
+      "loading": "Loading transactions...",
+      "noResults": "No transactions found"
+  },
+  "fundsConfirmationModal": {
+    "title": "Funds requested",
+    "requested": "{{amount}} Eurfy have been requested.",
+    "notify": "When the funds are available, you will receive a notification in the system.",
+    "autoLoad": "If approved, the amount will be automatically loaded into the city council account.",
+    "close": "Close"
+  },
+  "addGasModal": {
+    "title": "Add gas",
+    "currentGas": "Currently there are {{amount}} Ethers available.",
+    "addGasInfo": "When adding more funds, the request will be sent and these will become gas to pay for transactions.",
+    "notify": "When the funds are available, you will receive a notification in the system.",
+    "amountLabel": "Amount in euros",
+    "amountPlaceholder": "10 Euros",
+    "conversionInfo": "1 euro equals 10 Ethers",
+    "requestGas": "Request gas",
+    "errorAmount": "The amount must be greater than 0",
+    "close": "Go back"
+  },
+  "toastCitizenFormErrors": {
+    "full_name": "Full name is required",
+    "dni": "DNI is required",
+    "phone_number": "Phone number is required",
+    "email": "There was an issue with Email: is required or already exists"
+  },
+  "toastCitizen": {
+    "createdTitle": "Citizen created",
+    "createdDescription": "The citizen with email {{email}} has been created successfully.",
+    "deletedTitle": "Citizen deleted",
+    "deletedDescription": "The citizen has been deleted successfully.",
+    "blockedTitle": "Forced Withdrawal",
+    "blockedDescription": "The citizen tokens were successfully withdrawed",
+    "errorTitle": "Error",
+    "errorDescription": "Could not create the citizen. Please check the data.",
+    "errorDeleteTitle": "Error deleting",
+    "errorDeleteDescription": "The citizen could not be deleted.",
+    "errorBlockTitle": "Error forcing Withdrawal",
+    "errorBlockDescription": "Could not execute force Withdrawal",
+    "createdModal": "Citizen {{fullName}} has been successfully added to the system.",
+    "errorGeneral": "No se pudo crear el ciudadano. Revisa los datos."
+  },
+  "toastReport": {
+    "requestedTitle": "Report requested",
+    "requestedDescription": "The report is being generated",
+    "errorTitle": "Error generating report",
+    "errorDescription": "An error occurred while downloading the PDF."
+  },
+  "commerceDashboard": {
+    "welcomeTitle": "Welcome to SSItizens",
+    "welcomeSubtitle": "A new way to charge your favorite customers",
+    "bankAccountTitle": "Register bank account, IBAN",
+    "bankAccountDescription": "Add or change your bank account in seconds. This action is required to operate.",
+    "addBankAccountButton": "Add new bank account",
+    "bankAccountAddedTitle": "Bank account added",
+    "bankAccountAddedDescription": "Your bank account has been registered successfully.",
+    "historyTitle": "Check your transactions",
+    "historyDescription": "In the \"history\" section you can review your operations and payments received",
+    "historyButton": "View history",
+    "privacyTitle": "Privacy Policy",
+    "privacyDescription": "Please read and accept our privacy policy to continue using SSItizens.",
+    "privacyButton": "View privacy policy",
+    "privacyPolicy": [
+      "1. Data Collection: SSItizens collects personal data such as name, email, phone, and transaction data for proper platform management.",
+      "2. Use of Information: Data is used exclusively for the administration of social aid, user and business management, and legal compliance.",
+      "3. Data Sharing: We do not share your data with third parties, except by legal obligation or explicit consent.",
+      "4. Security: We apply technical and organizational measures to protect your data against unauthorized access.",
+      "5. Rights: You can access, rectify, or delete your data by contacting SSItizens support.",
+      "6. Retention: Your data will be kept as long as you are an active user or until you request its deletion.",
+      "7. Policy Changes: We will notify you of any relevant changes to this privacy policy."
+    ]
+  },
+  "toastLogin": {
+      "emptyFields": {
+        "title": "Empty fields",
+        "description": "Please fill in all fields"
+      },
+      "success": {
+        "title": "Login successful",
+        "description": "Welcome to the administration panel"
+      },
+      "error": {
+        "title": "Login error",
+        "description": "Incorrect username or password"
+      }
+  },
+  "userManual": {
+    "title": "User manual",
+    "section1Title": "What is SSItizens?",
+    "section1Text1": "SSItizens is a digital platform that allows citizens to manage social aid and make payments at participating stores easily and securely.",
+    "section1Text2": "With your account you can check your balance, view your transactions, recharge funds, and accept privacy policies to operate with full transparency.",
+    "section2Title": "How to recharge balance?",
+    "section2Text1": "To recharge your balance, click the 'Recharge balance' button and follow the instructions. The administrator can assign you funds according to your aid type.",
+    "section2Text2": "You will receive a notification when the funds are available in your account.",
+    "section3Title": "Check your transactions",
+    "section3Text1": "In the 'History' section you can review all your transactions, see where you made payments, and the details of each operation.",
+    "section4Title": "Privacy and security",
+    "section4Text1": "SSItizens protects your personal data and only uses it for the management of aid and payments. You can review and accept the privacy policy from your profile.",
+    "section4Text2": "If you have questions, contact system support to exercise your rights of access, rectification, or deletion of data."
+  },
+  "privacyToast": {
+    "successTitle": "Access granted",
+    "successDescription": "You have accepted the privacy policy and accessed successfully.",
+    "errorTitle": "Error",
+    "errorDescription": "Could not update acceptance of terms.",
+    "rejectTitle": "Access denied",
+    "rejectDescription": "You must accept the privacy policy to continue."
+  },
+  "toastCommerce": {
+    "createdTitle": "Store created",
+    "createdDescription": "The store with email {{email}} has been created successfully.",
+    "deletedTitle": "Store deleted",
+    "deletedDescription": "The store {{name}} has been deleted successfully.",
+    "errorTitle": "Error",
+    "errorDescription": "Could not create the store. Please check the data.",
+    "errorDeleteTitle": "Error deleting",
+    "errorDeleteDescription": "The store could not be deleted.",
+    "errorBlockTitle": "Error forcing Withdrawal",
+    "errorBlockDescription": "Could not execute force Withdrawal for the store.",
+    "blockedTitle": "Forced Withdrawal",
+    "blockedDescription": "The store's balance was successfully withdrawn.",
+    "createdModal": "Store {{commerceName}} has been successfully added.",
+    "errorGeneral": "Could not create the store. Please check the data."
+  },
+  "accountDeactivation": {
+    "title": "Account Deactivation",
+    "heading": "Do you want to deactivate your account?",
+    "description": "When requesting deactivation, a notification will be sent to the administrator to process your request. They may call you to confirm and understand your reasons for deactivation to help improve the system.",
+    "submitButton": "Start Deactivation",
+    "toast": {
+      "title": "Request Sent",
+      "description": "Your deactivation request has been sent successfully."
+    }
+  },
+  "citizenSidebar": {
+    "title": "SSItizens",
+    "dashboard": "Dashboard",
+    "history": "History",
+    "settings": "Settings",
+    "deactivate": "Deactivate Account",
+    "logout": "Logout",
+    "logoutSuccess": {
+      "title": "Session closed",
+      "description": "You have successfully logged out."
+    }
+  },
+  "commerceSidebar": {
+    "title": "SSItizens",
+    "dashboard": "Dashboard",
+    "history": "History",
+    "settings": "Settings",
+    "deactivate": "Deactivate Account",
+    "logout": "Logout",
+    "logoutSuccess": {
+      "title": "Session closed",
+      "description": "You have successfully logged out."
+    }
+  },
+  "bankAccountModal": {
+    "title": "New bank account",
+    "description": "Fill in the following fields to add or change your bank information.",
+    "holderName": "Account holder",
+    "cif": "Company tax code",
+    "iban": "IBAN",
+    "back": "Back",
+    "save": "Save new account"
+  },
+  "citizenConfirmation": {
+    "title": "Registration successful",
+    "message": "Citizen {{citizenName}} has been successfully added to the system.",
+    "close": "Close"
+  },
+  "rechargeBalanceModal": {
+    "title": "Recharge balance",
+    "prompt": "Enter the amount you want to recharge for citizen {{citizenName}}:",
+    "placeholder": "0.00",
+    "currency": "Eurfy",
+    "errorAmount": "Please enter a valid amount",
+    "errorMax": "The maximum amount is 10,000 Eurfy",
+    "cancel": "Cancel",
+    "submit": "Recharge"
+  },
+  "rechargeConfirmationModal": {
+    "title": "Recharge completed",
+    "message": "{{amount}} Eurfy have been recharged to citizen {{citizenName}}.",
+    "success": "The balance has been updated successfully.",
+    "accept": "Accept"
+  },
+  "recoverPasswordModal": {
+    "title": "Recover password",
+    "description": "We will send you an email with a link to reset your password.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "email@example.com",
+    "cancel": "Cancel",
+    "submit": "Change password",
+    "sending": "Sending...",
+    "toastTitle": "Email sent",
+    "toastDescription": "A link to reset your password has been sent to your email",
+    "errorTitle": "Error sending email",
+    "errorDescription": "The recovery email could not be sent. Please try again later."
+  }
+}

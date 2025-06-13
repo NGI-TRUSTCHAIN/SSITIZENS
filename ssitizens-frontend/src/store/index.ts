@@ -1,0 +1,1 @@
+export {useAuthStore} from '@/store/AuthStore/useAuthStore'

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transaction Report</title>
+    <style>
+
+        @page {
+            size: A4 landscape;
+            margin: 20mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: rgb(204, 43, 43);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .personal-info {
+            width: 80%;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid rgb(204, 43, 43);
+            background-color: #f9f9f9;
+        }
+
+        .personal-info p {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+
+
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(204, 43, 43);
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .inner-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inner-table th {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .inner-table th,
+        .inner-table td {
+            border: 1px solid #bbb;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Transaction Report</h1>
+    <div class="personal-info">
+        {% if profile.name %}<p><strong>{{profile_text.name}}:</strong> {{profile.name}}</p>{% endif %}
+        {% if profile.id %}<p><strong>{{profile_text.id}}:</strong> {{profile.id}}</p>{% endif %}
+        {% if profile.address %}<p><strong>{{profile_text.address}}:</strong> {{profile.address}}</p>{% endif %}
+        {% if profile.email %}<p><strong>{{profile_text.email}}:</strong> {{profile.email}}</p>{% endif %}
+        {% if profile.type %}<p><strong>{{profile_text.type}}:</strong> {{profile.type}}</p>{% endif %}
+        {% if profile.information %}<p><strong>{{profile_text.information}}:</strong> {{profile.information}}</p>{% endif %}
+    </div>
+
+    <table>
+        <tr>
+            <th>{{transaction_text.date_time}}</th>
+            <th>{{transaction_text.event}}</th>
+            <th>{{transaction_text.from}}</th>
+            <th>{{transaction_text.to}}</th>
+            <th>{{transaction_text.hash}}</th>
+            <th>{{transaction_text.tokens}}</th>
+            <!-- <th>{{transaction_text.ethers}}</th> -->
+            <th>{{transaction_text.ticket}}</th>
+            <th>{{transaction_text.ticket_elements}}</th>
+        </tr>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.timestamp }}</td>
+            <td>{{ transaction.event }}</td>
+            {% if transaction.from.data.store_id %}<td>{{ transaction.from.data.store_id }}</td>
+            {% elif transaction.from.data.full_name %}<td>{{ transaction.from.data.full_name }}</td>
+            {% else %}<td>{{ administrator }}</td>{% endif %}
+            {% if transaction.to.data.store_id %}<td>{{ transaction.to.data.store_id }}</td>
+            {% elif transaction.to.data.full_name %}<td>{{ transaction.to.data.full_name }}</td>
+            {% else %}<td>{{ administrator }}</td>{% endif %}
+            <td><a href="{{ transaction.hash}}" alt="Block Explorer">Block Explorer</a></td>
+            <td>{{ transaction.amount_tokens }}</td>
+            <!-- <td>{{ transaction.amount_ethers }}</td> -->
+            <td>
+                {% if transaction.data.ticket_image %}
+                <a href="{{ transaction.data.ticket_image}}" alt="Ticket Url">Ticket URL</a>
+                {% endif %}
+
+            </td>
+            <td>{% if transaction.data.aid_products %}
+                <table class="inner-table">
+                    <tr>
+                        <th>{{transaction_text.product}}</th>
+                        <th>{{transaction_text.price}}</th>
+                    </tr>
+                    {% for compra in transaction.data.aid_products %}
+                    <tr>
+                        <td>{{ compra.product_name }}</td>
+                        <td>{{ compra.product_total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>{{transaction_text.total_aid}}</th>
+                        <td>{{ transaction.data.aid_amount }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{transaction_text.total_payment}}</th>
+                        <td>{{ transaction.data.payment_amount }}</td>
+                    </tr>
+                </table>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

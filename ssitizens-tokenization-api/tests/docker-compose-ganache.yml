@@ -1,0 +1,12 @@
+version: "3"
+services:
+  blockchain:
+    image: trufflesuite/ganache:v7.9.2
+    container_name: ganache-shanghai
+    expose:
+      - "8545"
+    ports:
+      - "8545:8545"
+    volumes:
+      - ../.docker-volumes/ganache:/ganache_data
+    command: "--db /ganache_data --secure --port 8545 --gasLimit 80000000  --hardfork shanghai --verbose --chain.vmErrorsOnRPCResponse true --account 0x2441d08e6a9e1399a5105a9702e29746da395bacc486da88b31bc65fab7e5997,20000000000000000000000000000000000"
