@@ -80,3 +80,18 @@ You can find more information in /docs.
 - **endpoints.md:** Detailed documentation of the API endpoints available in the project. Includes descriptions of system health checks, event retrieval (paginated and by transaction hash), balance queries (Ether and token balances), and JSON-RPC methods for interacting with smart contracts.
 
 - **models.md:** Comprehensive documentation of the database models used in the project, specifically the `EVENTS_TABLE`. Includes information about fields (e.g., `id`, `hash`, `type`, `data`, `timestamp`, `block_number`, `gas_used`), relationships, supported operations (insert, delete, retrieve), and metadata for pagination.
+
+---
+
+## 📢 Credits
+
+This project has received funding from the European Union's Horizon 2020 research and innovation programme within the framework of the LEDGER Project funded under grant agreement No825268.
+
+<p align="center">
+  <a href="https://www.ngi.eu" target="_blank">
+    <img src="./assets/ngi-logo.png" alt="NGI Logo" style="height:80px; margin-right: 40px;"/>
+  </a>
+  <img src="./assets/eu-flag.png" alt="EU Flag" style="height:80px;"/>
+</p>
+
+Please, remember to link the NGI project logo to [www.ngi.eu](https://www.ngi.eu).

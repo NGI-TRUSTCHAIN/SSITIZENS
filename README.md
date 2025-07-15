@@ -70,3 +70,18 @@ A web portal built with React and TypeScript that allows citizens, merchants, an
 A cross-platform mobile app developed in React Native that allows citizens and merchants to manage their digital identities and tokens. It includes biometric authentication, QR scanning, payments, and token-to-euro conversion requests. 
 **Status:** Completed
 > **Note:** The source code for this application is not publicly available. However, it integrates the publicly available tokenization library to handle wallet-related operations.
+
+---
+
+## 📢 Credits
+
+This project has received funding from the European Union's Horizon 2020 research and innovation programme within the framework of the LEDGER Project funded under grant agreement No825268.
+
+<p align="center">
+  <a href="https://www.ngi.eu" target="_blank">
+    <img src="./assets/ngi-logo.png" alt="NGI Logo" style="height:80px; margin-right: 40px;"/>
+  </a>
+  <img src="./assets/eu-flag.png" alt="EU Flag" style="height:80px;"/>
+</p>
+
+Please, remember to link the NGI project logo to [www.ngi.eu](https://www.ngi.eu).
