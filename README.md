@@ -19,6 +19,12 @@ This document provides a high-level overview of the system architecture, detaili
     - [Website](#website)
     - [Holder Wallet](#holder-wallet)
 
+## Architecture
+
+<p align="center">
+  <img src="./assets/architecture.png" alt="System Architecture Diagram" style="max-width:100%; height:auto;">
+</p>
+
 
 ## Blockchain Side
 
@@ -83,5 +89,3 @@ This project has received funding from the European Union's Horizon 2020 researc
   </a>
   <img src="./assets/eu-flag.png" alt="EU Flag" style="height:80px;"/>
 </p>
-
-Please, remember to link the NGI project logo to [www.ngi.eu](https://www.ngi.eu).

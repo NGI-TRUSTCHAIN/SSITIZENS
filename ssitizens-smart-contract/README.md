@@ -116,9 +116,7 @@ This project has received funding from the European Union's Horizon 2020 researc
 
 <p align="center">
   <a href="https://www.ngi.eu" target="_blank">
-    <img src="./assets/ngi-logo.png" alt="NGI Logo" style="height:80px; margin-right: 40px;"/>
+    <img src="../assets/ngi-logo.png" alt="NGI Logo" style="height:80px; margin-right: 40px;"/>
   </a>
-  <img src="./assets/eu-flag.png" alt="EU Flag" style="height:80px;"/>
+  <img src="../assets/eu-flag.png" alt="EU Flag" style="height:80px;"/>
 </p>
-
-Please, remember to link the NGI project logo to [www.ngi.eu](https://www.ngi.eu).
