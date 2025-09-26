@@ -15,20 +15,15 @@ from django.utils.translation import gettext_lazy as _
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from project import settings
 from rest_framework import filters
-from rest_framework.authentication import (
-    BasicAuthentication,
-    SessionAuthentication,
-)
-from rest_framework.decorators import action
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
+from rest_framework.decorators import action, api_view
 from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import AllowAny, DjangoModelPermissions
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, ViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from weasyprint import HTML
-
-from project import settings
 from ssitizens.enums import Types, VerificationFlows
 from ssitizens.filters import ProfileSearchFilter, TransactionSearchFilter
 from ssitizens.functions import access_time_session_id, check_address
@@ -58,6 +53,7 @@ from ssitizens.serializers import (
 from ssitizens.services.balance import BalanceService
 from ssitizens.services.rpc.rpc import RPCMethodsService
 from ssitizens.services.vc_data.functions import get_data_provider
+from weasyprint import HTML
 
 
 def check_session_id(id: str):
@@ -836,3 +832,9 @@ class AdministratorView(ViewSet):
             BalanceSerializer(balance.get("content")).data,
             status=balance.get("status_code"),
         )
+
+
+# Health Check Endpoint
+@api_view(["GET"])
+def health_check(request):
+    return Response({"status": "ok"}, status=200)

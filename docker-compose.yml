@@ -1,0 +1,256 @@
+services:
+
+  redis-backend:
+    image: redis:7
+    container_name: et-ssitizens-redis-backend
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    profiles:
+      - demo
+      - dev
+      - full
+
+  postgres-backend:
+    image: postgres:16
+    container_name: postgres-backend
+    ports:
+      - 5432:5432
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/postgres"
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    profiles:
+      - demo
+      - dev
+      - full
+
+  backend:
+    build:
+      context: ./ssitizens-backend
+      dockerfile: Dockerfile
+    container_name: et-ssitizens-backend
+    command: sh ./entrypoint.sh
+    environment:
+      DB_HOST: "postgres-backend"
+      DB_NAME: "postgres"
+      DB_USER: "postgres"
+      DB_PASSWORD: "postgres"
+      DB_PORT: "5432"
+      ALLOWED_HOSTS: "localhost"
+      BACKEND_DOMAIN: "http://localhost:8000"
+      CORS_ORIGIN_ALLOW_ALL: True
+      DEBUG: 1
+      REDIS_URL: "redis://redis-backend:6379/0"
+    env_file:
+      - .env
+    volumes:
+      - ./ssitizens-backend:/code/
+    ports:
+      - 8000:8000
+    depends_on:
+      postgres-backend:
+        condition: service_healthy
+      redis-backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health; echo 'Backend healthcheck' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    profiles:
+      - demo
+      - dev
+      - full
+
+  frontend:
+    build:
+      context: ./ssitizens-frontend
+      dockerfile: Dockerfile
+      args:
+        ARG_VITE_API_URL: "__VITE_API_URL__"
+    command: sh ./entrypoint.sh
+    environment:
+      VITE_API_URL: "http://localhost:8000"
+      PORT: 3000
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000; echo 'Frontend healthcheck' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    profiles:
+      - demo
+      - dev
+      - full
+
+# Dev Services
+  celery:
+    build:
+      context: ./ssitizens-backend
+      dockerfile: Dockerfile
+    command: celery -A project worker -l info -E
+    environment:
+      REDIS_URL: "redis://redis-backend:6379/0"
+      BACKEND_DOMAIN: "http://localhost:8000"
+      REDIS_BROKER_URL: "redis://redis-backend:6379/0"
+    volumes:
+      - ./ssitizens-backend:/code/
+    depends_on:
+      redis-backend:
+        condition: service_healthy
+      postgres-backend:
+        condition: service_healthy
+    profiles:
+      - dev
+      - full
+
+  flower:
+    image: mher/flower
+    environment:
+      CELERY_BROKER_URL: "redis://redis-backend:6379/0"
+    ports:
+      - 8888:8888
+    depends_on:
+      redis-backend:
+        condition: service_healthy
+      celery:
+        condition: service_started
+    profiles:
+      - dev
+      - full
+
+  redis-tokenization:
+    image: redis:7
+    container_name: et-ssitizens-redis-tokenization
+    ports:
+      - 6380:6380
+    environment:
+      REDIS_URL: redis://redis-tokenization:6380/0
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    profiles:
+      - dev
+      - full
+
+  postgres-tokenization:
+    image: postgres:16
+    container_name: et-ssitizens-postgres-tokenization
+    ports:
+      - 5433:5433
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgres-tokenization:5433/postgres"
+      PGDATABASE: "postgres"
+      PGUSER: "postgres"
+      PGPASSWORD: "postgres"
+      PGHOST: "postgres-tokenization"
+      PGPORT: "5433"
+
+    # env_file:
+    #   - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    profiles:
+      - dev
+      - full
+
+  tokenization-service:
+    build:
+      context: ./ssitizens-tokenization-api
+      dockerfile: Dockerfile
+    container_name: et-ssitizens-tokenization-service
+    command: npm run dev
+    volumes:
+      - ./ssitizens-tokenization-api/src:/app/src
+      - ./ssitizens-tokenization-api/tsconfig.json:/app/tsconfig.json
+      - ./ssitizens-tokenization-api/nodemon.json:/app/nodemon.json
+      - ./ssitizens-tokenization-api/package.json:/app/package.json
+      - ./ssitizens-tokenization-api/src/server.ts:/app/src/server.ts
+    environment:
+      DATABASE_URL: "postgres://postgres:postgres@postgres-tokenization:5433/postgres"
+      DATABASE_SSL: false
+      REDIS_URL: redis://redis-tokenization:6380/0
+      BACK_END_URL: "http://localhost:8000"
+      NODE_ENV: production
+      NODE_OPTIONS: --max_old_space_size=2560
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    depends_on:
+      postgres-tokenization:
+        condition: service_healthy
+      redis-tokenization:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/api/system/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    profiles:
+      - dev
+      - full
+
+  # Opcional: Ganache para el perfil dev
+  ganache:
+    image: trufflesuite/ganache:v7.9.2
+    container_name: et-ssitizens-ganache
+    ports:
+      - "8545:8545"
+    volumes:
+      - ganache_data:/ganache_data
+    command: >
+      --db /ganache_data
+      --secure
+      --port 8545
+      --gasLimit 80000000
+      --hardfork berlin
+      --verbose
+      --chain.vmErrorsOnRPCResponse true
+      --account 0x2441d08e6a9e1399a5105a9702e29746da395bacc486da88b31bc65fab7e5997,20000000000000000000000000000000000
+
+    restart: unless-stopped
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+    driver: local
+  ganache_data:
+    driver: local
+
+networks:
+  default:
+    name: ssitizens-dev-network
+    driver: bridge

@@ -1,11 +1,12 @@
 import base64
 import json
 import logging
-import time
 import os
+import random
+import time
 from decimal import Decimal
 from typing import Dict, List, Literal, NamedTuple, Optional, Tuple, Union
-from django.shortcuts import get_object_or_404
+
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http.response import JsonResponse
@@ -27,9 +28,9 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from ticket_processing.models import Aid
 from ticket_processing.serializers import AidSerializer, TicketUploadSerializer
 
-AZURE_OPENAI_API_KEY = settings.AZURE_OPENAI_API_KEY
-AZURE_OPENAI_API_BASE = settings.AZURE_OPENAI_API_BASE
-AZURE_OPENAI_API_VERSION = settings.AZURE_OPENAI_API_VERSION
+OPENAI_API_KEY = settings.OPENAI_API_KEY
+OPENAI_API_BASE = settings.OPENAI_API_BASE
+OPENAI_API_VERSION = settings.OPENAI_API_VERSION
 
 logging.basicConfig(
     level=logging.INFO,
@@ -46,17 +47,14 @@ class TicketRecord(NamedTuple):
 
 
 openai_client = AzureOpenAI(
-    api_version=AZURE_OPENAI_API_VERSION,
-    azure_endpoint=AZURE_OPENAI_API_BASE,
-    api_key=AZURE_OPENAI_API_KEY,
+    api_version=OPENAI_API_VERSION,
+    azure_endpoint=OPENAI_API_BASE,
+    api_key=OPENAI_API_KEY,
 )
 
 try:
     prompts_path = os.path.join(
-        settings.BASE_DIR, 
-        "ticket_processing",
-        "data",
-        "prompts.json"
+        settings.BASE_DIR, "ticket_processing", "data", "prompts.json"
     )
     with open(prompts_path, "r", encoding="utf-8") as file:
         prompts = json.load(file)
@@ -118,7 +116,7 @@ def call_json_completion_model(
             messages=messages,
             response_format={"type": "json_object"},
         )
-    except Exception as e:
+    except Exception:
         logging.info("Error calling Azure OpenAI API: {e}")
         return None
 
@@ -222,7 +220,10 @@ def get_aid_products_list(aid: Aid) -> List[Dict[str, Optional[str]]]:
     )
 
     product_list = [
-        {"name": product["name"], "additional_information": product["additional_information"] or ""}
+        {
+            "name": product["name"],
+            "additional_information": product["additional_information"] or "",
+        }
         for product in products_query
     ]
 
@@ -240,7 +241,9 @@ def add_products_to_aid_prompt(aid_product_list: List, aid_prompt: str) -> str:
             product_text = product["name"]
             structured_product_list.append(product_text)
 
-    product_list_str = "\n".join([f"- {product}" for product in structured_product_list])
+    product_list_str = "\n".join(
+        [f"- {product}" for product in structured_product_list]
+    )
     formatted_aid_prompt = aid_prompt.format(aid_product_list=product_list_str)
 
     return formatted_aid_prompt
@@ -282,99 +285,142 @@ images_param = openapi.Parameter(
 @permission_classes([IsAuthenticated])
 @parser_classes([MultiPartParser, FormParser])
 def upload_images(request):
-    time_0 = time.time()
-    serializer = TicketUploadSerializer(data=request.data)
-
-    if not serializer.is_valid():
-        return JsonResponse(data=serializer._errors, status=400)
-
-    aid_id = serializer.validated_data["aid_id"]
-    images = serializer.validated_data["images"]
-
-    try:
-        aid = Aid.objects.get(id=aid_id)
-    except Aid.DoesNotExist:
-        return JsonResponse(data={"message": "Aid not found for the provided ID."}, status=404)
-
-    for image in images:
-        logging.info(image)
-        logging.info(type(image))
-
-    json_formatted_base64_images = base64_encode_images(images)
-
-    image_processing_messages_list = prepare_chat_messages(
-        image_processing_prompt, *json_formatted_base64_images
-    )
-    time_1 = time.time()
-    image_completion_message_dict = call_json_completion_model(
-        openai_client, settings.VISION_LLM_MODEL, image_processing_messages_list
-    )
-    if image_completion_message_dict is None:
-        return JsonResponse(
-            data={"message": "Error processing the provided image."}, status=500
-        )
-    elif image_completion_message_dict.get("warning"):
-        return JsonResponse(
-            data={
-                "message": "No purchase receipt was found in the provided image."
+    if settings.DEMO_MODE:
+        mock_data = [
+            {
+                "aid_amount": "3.60",
+                "aid_products": [
+                    {
+                        "product_name": "BLOC CUARTO ENRI",
+                        "product_total_price": "2.00",
+                    },
+                    {
+                        "product_name": "BOLIGRAFO BIC",
+                        "product_total_price": "1.60",
+                    },
+                ],
+                "ticket_image": "https://ssitizens.mypinata.cloud/ipfs/bafybeieq7yggw7nsxj3w2bsqynv7wgstsqanvyu62mnefl56pxkb62wn34?p…",
+                "payment_amount": "3.50",
             },
-            status=200,
+            {
+                "aid_amount": "3.30",
+                "aid_products": [
+                    {
+                        "product_name": "Rotulador Roller Pilot V Ba",
+                        "product_total_price": "2.30",
+                    },
+                    {
+                        "product_name": "LIBRETA A6",
+                        "product_total_price": "1.00",
+                    },
+                ],
+                "ticket_image": "https://ssitizens.mypinata.cloud/ipfs/bafybeidghs47dwswiwhnj27asdga3xypodsyiuw5zsns7dav5qj4kt7icy?p…",
+                "payment_amount": "3.50",
+            },
+        ]
+        response_data = random.choice(mock_data)
+    else:
+        time_0 = time.time()
+        serializer = TicketUploadSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return JsonResponse(data=serializer._errors, status=400)
+
+        aid_id = serializer.validated_data["aid_id"]
+        images = serializer.validated_data["images"]
+
+        try:
+            aid = Aid.objects.get(id=aid_id)
+        except Aid.DoesNotExist:
+            return JsonResponse(
+                data={"message": "Aid not found for the provided ID."}, status=404
+            )
+
+        for image in images:
+            logging.info(image)
+            logging.info(type(image))
+
+        json_formatted_base64_images = base64_encode_images(images)
+
+        image_processing_messages_list = prepare_chat_messages(
+            image_processing_prompt, *json_formatted_base64_images
         )
-    time_2 = time.time()
-
-    aid_product_list = get_aid_products_list(aid)
-    if not aid_product_list:
-        return JsonResponse(data={"message": "No products found for the provided aid."}, status=404)
-
-    formatted_aid_prompt = add_products_to_aid_prompt(aid_product_list, aid_prompt)
-
-    formatted_data_processing_prompt = data_processing_prompt.format(
-        ticket_json=image_completion_message_dict, aid_description=formatted_aid_prompt
-    )
-    logging.info(f"\n\nFormatted data processing prompt:\n\n{formatted_data_processing_prompt}\n\n")
-
-    data_processing_messages_list = prepare_chat_messages(
-        formatted_data_processing_prompt,
-    )
-    data_completion_message_dict = call_json_completion_model(
-        openai_client,
-        settings.CLASSIFICATION_LLM_MODEL,
-        data_processing_messages_list,
-        parse_decimal=True,
-    )
-    if data_completion_message_dict is None:
-        return JsonResponse(
-            data={"message": "Error processing the provided image."}, status=500
+        time_1 = time.time()
+        image_completion_message_dict = call_json_completion_model(
+            openai_client, settings.VISION_LLM_MODEL, image_processing_messages_list
         )
-    time_3 = time.time()
+        if image_completion_message_dict is None:
+            return JsonResponse(
+                data={"message": "Error processing the provided image."}, status=500
+            )
+        elif image_completion_message_dict.get("warning"):
+            return JsonResponse(
+                data={
+                    "message": "No purchase receipt was found in the provided image."
+                },
+                status=200,
+            )
+        time_2 = time.time()
 
-    logging.info(
-        "Completion message for data processing:\n", data_completion_message_dict
-    )
+        aid_product_list = get_aid_products_list(aid)
+        if not aid_product_list:
+            return JsonResponse(
+                data={"message": "No products found for the provided aid."}, status=404
+            )
 
-    ticket_product_list = data_completion_message_dict.get("productos", [])
+        formatted_aid_prompt = add_products_to_aid_prompt(aid_product_list, aid_prompt)
 
-    formatted_ticket_product_list: List[TicketRecord] = [
-        parse_ticket_record(record) for record in ticket_product_list
-    ]
+        formatted_data_processing_prompt = data_processing_prompt.format(
+            ticket_json=image_completion_message_dict,
+            aid_description=formatted_aid_prompt,
+        )
+        logging.info(
+            f"\n\nFormatted data processing prompt:\n\n{formatted_data_processing_prompt}\n\n"
+        )
 
-    aid_total, without_aid_total = process_ticket_total(formatted_ticket_product_list)
+        data_processing_messages_list = prepare_chat_messages(
+            formatted_data_processing_prompt,
+        )
+        data_completion_message_dict = call_json_completion_model(
+            openai_client,
+            settings.CLASSIFICATION_LLM_MODEL,
+            data_processing_messages_list,
+            parse_decimal=True,
+        )
+        if data_completion_message_dict is None:
+            return JsonResponse(
+                data={"message": "Error processing the provided image."}, status=500
+            )
+        time_3 = time.time()
 
-    products = process_ticket_products(formatted_ticket_product_list)
+        logging.info(
+            "Completion message for data processing:\n", data_completion_message_dict
+        )
 
-    print_ticket_product_list(formatted_ticket_product_list)
+        ticket_product_list = data_completion_message_dict.get("productos", [])
 
-    response_data = {
-        "payment_amount": without_aid_total,
-        "aid_amount": aid_total,
-        "aid_products": products,
-    }
+        formatted_ticket_product_list: List[TicketRecord] = [
+            parse_ticket_record(record) for record in ticket_product_list
+        ]
+
+        aid_total, without_aid_total = process_ticket_total(
+            formatted_ticket_product_list
+        )
+
+        products = process_ticket_products(formatted_ticket_product_list)
+
+        print_ticket_product_list(formatted_ticket_product_list)
+
+        response_data = {
+            "payment_amount": without_aid_total,  # Random
+            "aid_amount": aid_total,
+            "aid_products": products,
+        }
+        time_4 = time.time()
+        logging.info(
+            f"times:\n\t\ttime taken for img process. prompt:\t{time_1 - time_0}\n\t\ttime taken for img process. model:\t{time_2 - time_1}\n\t\ttime taken for classif. model:\t{time_3 - time_2}\n\t\ttime taken for data process.:\t{time_4 - time_3}\n\t\ttime taken for total process.:\t{time_4 - time_0}"
+        )
     logging.info(f"Response data:\n{response_data}")
-
-    time_4 = time.time()
-    logging.info(
-        f"times:\n\t\ttime taken for img process. prompt:\t{time_1 - time_0}\n\t\ttime taken for img process. model:\t{time_2 - time_1}\n\t\ttime taken for classif. model:\t{time_3 - time_2}\n\t\ttime taken for data process.:\t{time_4 - time_3}\n\t\ttime taken for total process.:\t{time_4 - time_0}"
-    )
 
     return JsonResponse(data=response_data, status=200)
 

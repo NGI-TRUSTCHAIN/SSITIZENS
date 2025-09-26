@@ -26,7 +26,6 @@ services:
       - ./tsconfig.json:/app/tsconfig.json
       - ./nodemon.json:/app/nodemon.json
       - ./package.json:/app/package.json
-      - ./node_modules:/app/node_modules
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
       DATABASE_SSL: false

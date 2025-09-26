@@ -2,21 +2,30 @@ FROM node:22.6.0-alpine3.20
 
 WORKDIR /app
 
+# Instalar dependencias del sistema
+RUN apk add --no-cache git curl
+
+# Copiar archivos de dependencias
 COPY package*.json ./
-RUN apk add --no-cache git
-# Install dependencies in a deterministic and repeatable way
 
-COPY src ./src
-COPY tsconfig.json ./
-
+# Instalar dependencias (incluyendo dev dependencies para desarrollo)
 RUN npm ci
-RUN npm run compile
+
+# Instalar nodemon globalmente para desarrollo
 RUN npm install -g nodemon
-RUN npm prune --omit=dev
 
-ENV NODE_ENV=production
+# Copiar archivos de configuración
+COPY tsconfig.json ./
+COPY nodemon.json ./
 
+# Copiar código fuente
+COPY src ./src
+
+# En desarrollo, mantener todas las dependencias
+# En producción, se puede usar npm prune --omit=dev
+
+# Exponer puerto
 EXPOSE 8080
 
-
-CMD [ "npm", "run", "start:prod" ]
+# Comando por defecto (se puede sobrescribir en docker-compose)
+CMD [ "npm", "run", "dev" ]

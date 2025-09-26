@@ -8,6 +8,6 @@ from .settings import CELERY_BROKER_URL
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
-app = Celery("project", broker=os.environ.get(CELERY_BROKER_URL))
+app = Celery("project", broker=CELERY_BROKER_URL)
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()

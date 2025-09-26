@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-
+from ssitizens.views import health_check
 from user.views import LoginViewCustom
 
 from .settings import BACKEND_DOMAIN, MEDIA_ROOT, MEDIA_URL
@@ -55,6 +55,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
+    path("health/", health_check, name="health_check"),
     path("", include("ssitizens.urls")),
     path("", include("ticket_processing.urls")),
     path("api/api-token-auth", LoginViewCustom.as_view()),

@@ -1,3 +1,3 @@
 module.exports = {
-  skipFiles: ["test/","standards/"]
+  skipFiles: ["test/izTokenUpgraded.sol"]
 };

@@ -399,9 +399,9 @@ SESSION_EXPIRATION = os.environ.get("SESSION_EXPIRATION", 2)
 BLOCK_EXPLORER_URL = os.environ.get("BLOCK_EXPLORER_URL", "")
 
 # OpenAI Settings
-AZURE_OPENAI_API_KEY = os.environ.get("AZURE_OPENAI_API_KEY", "")
-AZURE_OPENAI_API_BASE = os.environ.get("AZURE_OPENAI_API_BASE", "")
-AZURE_OPENAI_API_VERSION = os.environ.get("AZURE_OPENAI_API_VERSION", "")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+OPENAI_API_BASE = os.environ.get("OPENAI_API_BASE", "")
+OPENAI_API_VERSION = os.environ.get("OPENAI_API_VERSION", "")
 VISION_LLM_MODEL = os.environ.get("VISION_LLM_MODEL", "")
 CLASSIFICATION_LLM_MODEL = os.environ.get("CLASSIFICATION_LLM_MODEL", "")
 
@@ -411,6 +411,8 @@ PINATA_GATEWAY_TOKEN = os.environ.get("PINATA_GATEWAY_TOKEN", "")
 PINATA_SECRET_JWT = os.environ.get("PINATA_SECRET_JWT", "")
 
 # Local Settings
+DEMO_MODE = os.environ.get("DEMO_MODE", "false").lower() in ["true", "1", "t"]
+
 try:
     from .settings_local import *
 except ImportError:

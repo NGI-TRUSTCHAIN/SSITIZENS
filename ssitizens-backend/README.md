@@ -40,11 +40,11 @@ The following environment variables are used in the project. Ensure they are pro
 - **`TOKENIZATION_SERVICE_URL`**: URL for the tokenization service.
 - **`BLOCK_EXPLORER_URL`**: URL for the block explorer view.
 
-### Azure OpenAI Configuration
-- **`AZURE_OPENAI_API_BASE`**: Base URL for Azure OpenAI API.
+### OpenAI Configuration
+- **`OPENAI_API_BASE`**: Base URL for Azure OpenAI API.
   - Example: `https://your-resource-name.cognitiveservices.azure.com`
-- **`AZURE_OPENAI_API_KEY`**: API key for Azure OpenAI.
-- **`AZURE_OPENAI_API_VERSION`**: Version of the Azure OpenAI API.
+- **`OPENAI_API_KEY`**: API key for Azure OpenAI.
+- **`OPENAI_API_VERSION`**: Version of the Azure OpenAI API.
   - Example: `2024-06-01-preview`
 - **`VISION_LLM_MODEL`**: Vision model for Azure OpenAI.
   - Example: `gpt-4.1-mini`

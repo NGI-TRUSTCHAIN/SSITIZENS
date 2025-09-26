@@ -12,11 +12,11 @@ async function firstCaptureEvents() {
         const provider = ethers.getDefaultProvider(SETTINGS.blockchain_url);
         const toBlock = await provider.getBlockNumber();
         // Al iniciar con 10.000 bloques de antiguedad, que es el maximo del free ier del RPC que utilizamos
-        const fromBlock = toBlock - (SETTINGS.first_block_interval_event_indexer || 10000);
-        console.log("first_block_interval_event_indexer: ", SETTINGS.first_block_interval_event_indexer);         
+        const fromBlock = (toBlock - (SETTINGS.first_block_interval_event_indexer || 10000)) < 0 ? 0 : (toBlock - (SETTINGS.first_block_interval_event_indexer || 10000));
+        console.log("first_block_interval_event_indexer: ", SETTINGS.first_block_interval_event_indexer);
         const eventCapture = container.resolve(EventCaptureStore);
         await eventCapture.captureAndStoreEvents(fromBlock, toBlock);
-        
+
         console.log('Initial capture completed successfully');
     } catch (error) {
         console.error('Error at initial capture:', error);
@@ -41,13 +41,13 @@ export async function captureEvents() {
     try {
         isRunning = true;
         console.log("Starting event capture process...");
-        
+
         const provider = ethers.getDefaultProvider(SETTINGS.blockchain_url);
         const toBlock = await provider.getBlockNumber();
-        const fromBlock = toBlock - (SETTINGS.block_interval_event_indexer || 10);       
+        const fromBlock = (toBlock - (SETTINGS.block_interval_event_indexer || 10)) < 0 ? 0 : (toBlock - (SETTINGS.block_interval_event_indexer || 10));
         const eventCapture = container.resolve(EventCaptureStore);
         await eventCapture.captureAndStoreEvents(fromBlock, toBlock);
-        
+
         console.log('Event capture completed successfully');
     } catch (error) {
         console.error('Error in process:', error);

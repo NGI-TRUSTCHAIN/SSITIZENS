@@ -6,6 +6,7 @@ This document provides a high-level overview of the system architecture, detaili
 
 - [SSITIZENS](#ssitizens)
   - [Table of Contents](#table-of-contents)
+  - [Architecture](#architecture)
   - [Blockchain Side](#blockchain-side)
     - [Smart Contract](#smart-contract)
     - [Tokenization API](#tokenization-api)
@@ -18,6 +19,8 @@ This document provides a high-level overview of the system architecture, detaili
   - [Frontend Side](#frontend-side)
     - [Website](#website)
     - [Holder Wallet](#holder-wallet)
+- [TODO DESPLIEGUE CONJUNTO](#todo-despliegue-conjunto)
+  - [📢 Credits](#-credits)
 
 ## Architecture
 
@@ -78,6 +81,70 @@ A cross-platform mobile app developed in React Native that allows citizens and m
 > **Note:** The source code for this application is not publicly available. However, it integrates the publicly available tokenization library to handle wallet-related operations.
 
 ---
+# TODO DESPLIEGUE CONJUNTO
+
+En caso de encontrar el siguiente error:
+
+```bash
+[INFO] Iniciando despliegue en modo full...
+[SUCCESS] El archivo .env existe y todas las variables están configuradas.
+unknown flag: --profile
+
+Usage:  docker [OPTIONS] COMMAND [ARG...]
+
+Run 'docker --help' for more information
+
+```
+```bash
+[INFO] Iniciando despliegue en modo full...
+[SUCCESS] El archivo .env existe y todas las variables están configuradas.
+docker: unknown command: docker compose
+
+Run 'docker --help' for more information
+```
+Es porque se está se está utilizando dentro del `setup.sh` el comando `docker compose`, habría que sustituirlo en base
+al comando que se utilize de `docker compose` en la máquina host. Habría que reemplazar todos los `docker compose` del fichero por
+`docker-compose` (o viceversa).
+
+Funcionamiento del setup.sh (`./setup.sh --help`)
+
+```bash
+Opciones:
+  --deploy --mode <demo|dev|full> [--build] [--detach] [--verbose]
+    - demo: Despliega servicios básicos.
+    - dev: Incluye servicios adicionales.
+    - full: Despliegue completo.
+    - --build: Reconstruye imágenes.
+    - --detach: Ejecuta en segundo plano.
+    - --verbose: Salida detallada.
+
+  --manage <docker|--ports <demo|dev|full>|env|containers|stop|clean>
+    - docker: Verifica instalación.
+    - --ports: Verifica puertos.
+    - env: Genera archivo de variables de entorno (.env).
+    - containers: Estado de contenedores.
+    - stop: Detiene contenedores.
+    - clean: Limpia contenedores huérfanos.
+
+  --help
+    Muestra esta ayuda.
+
+Ejemplos:
+  Desplegar en modo dev:
+    ./setup.sh --deploy --mode dev --build --detach
+  Generar variables de entorno:
+    ./setup.sh --manage env
+  Detener contenedores:
+    ./setup.sh --manage stop
+  Limpiar contenedores huérfanos:
+    ./setup.sh --manage clean
+  Estado de contenedores:
+    ./setup.sh --manage containers
+  Verificar puertos:
+    ./setup.sh --manage --ports dev
+  Mostrar ayuda:
+    ./setup.sh --help
+```
 
 ## 📢 Credits
 
